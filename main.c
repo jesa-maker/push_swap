@@ -6,7 +6,7 @@
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 10:19:26 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/18 07:49:52 by jesau            ###   ########.fr       */
+/*   Updated: 2026/07/18 11:16:18 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ int	check_min_max(char *str)
 	long	nbr;
 
 	i = 0;
+	if (str[i] == '-' || str[i] == '+')
+		i++;
+	if (str[i] == '\0')
+		return (1);
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
