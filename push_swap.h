@@ -6,7 +6,7 @@
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 10:15:59 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/17 13:53:25 by jesau            ###   ########.fr       */
+/*   Updated: 2026/07/18 11:35:34 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,11 @@
 # define PUSH_SWAP_H
 
 # include "libft/libft.h"
+
+typedef struct ps_arr
+{
+	int	nbr;
+	int	index;
+}	t_arr;
 
 #endif

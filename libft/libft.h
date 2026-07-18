@@ -6,7 +6,7 @@
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 12:47:28 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/17 21:39:37 by jesau            ###   ########.fr       */
+/*   Updated: 2026/07/18 11:35:07 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,6 @@ typedef struct s_list
 	struct s_list	*next;
 	struct s_list	*prev;
 }	t_list;
-
-typedef struct ps_arr
-{
-	int	nbr;
-	int	index;
-}	t_arr;
 
 /* ========================================================================== */
 /*                              LIBC FUNCTIONS                                */
