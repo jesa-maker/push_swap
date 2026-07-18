@@ -6,7 +6,7 @@
 #    By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/07/17 10:12:56 by jesau             #+#    #+#              #
-#    Updated: 2026/07/17 10:15:43 by jesau            ###   ########.fr        #
+#    Updated: 2026/07/18 08:35:53 by jesau            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,14 @@ CFLAGS = -Wall -Wextra -Werror
 SRC = 
 
 OBJ = $(SRC:.c=.o)
-NAME = libft.a
+NAME = push_swap.a
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
 	ar rcs $(NAME) $(OBJ)
 
-%.o: %.c libft/libft.h
+%.o: %.c libft/libft.h push_swap.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 bonus:
