@@ -6,11 +6,10 @@
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 10:19:26 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/18 11:47:42 by jesau            ###   ########.fr       */
+/*   Updated: 2026/07/18 13:38:18 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "push_swap.h"
 
 int	check_flag(char *str)
@@ -91,7 +90,8 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	arr = push_swap_arr(argc, argv, nbr_count);
-	push_swap(arr);
+	if (push_swap(argv, arr, nbr_count))
+		ft_putendl_fd("Error", 1);
 	free(arr);
 	return (0);
 }
