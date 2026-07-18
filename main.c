@@ -6,7 +6,7 @@
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 10:19:26 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/18 11:16:18 by jesau            ###   ########.fr       */
+/*   Updated: 2026/07/18 11:47:42 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	arr = push_swap_arr(argc, argv, nbr_count);
+	push_swap(arr);
 	free(arr);
 	return (0);
 }

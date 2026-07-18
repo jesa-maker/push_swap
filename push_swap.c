@@ -1,29 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/17 10:15:59 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/18 11:51:43 by jesau            ###   ########.fr       */
+/*   Created: 2026/07/18 11:47:57 by jesau             #+#    #+#             */
+/*   Updated: 2026/07/18 11:54:33 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "push_swap.h"
 
-# include "libft/libft.h"
-
-typedef struct ps_arr
-{
-	int	nbr;
-	int	index;
-}	t_arr;
-
-int		main(int argc, char **argv);
-t_arr	*push_swap_arr(int argc, char **argv, int count);
-int		check_min_max(char *str);
-int		check_flag(char *str);
-
-#endif
