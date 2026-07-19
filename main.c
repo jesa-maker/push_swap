@@ -6,7 +6,7 @@
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 10:19:26 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/18 13:38:18 by jesau            ###   ########.fr       */
+/*   Updated: 2026/07/19 21:55:28 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,39 +45,44 @@ int	check_min_max(char *str)
 	return (0);
 }
 
-t_arr	*push_swap_arr(int argc, char **argv, int count)
+int	init_push_swap_info(t_info *info, int argc, char **argv, int nbr_count)
 {
-	int		i;
-	int		j;
-	t_arr	*arr;
+	int	i;
+	int	j;
 
-	arr = malloc(sizeof(t_arr) * count);
-	if (!arr)
-		return (NULL);
+	info->stack_a = malloc(sizeof(t_arr) * nbr_count);
+	info->stack_b = malloc(sizeof(t_arr) * nbr_count);
+	if (!info->stack_a || !info->stack_b)
+	{
+		free(info->stack_a);
+		free(info->stack_b);
+		return (1);
+	}
+	info->size_a = nbr_count;
+	info->size_b = 0;
 	j = 0;
 	i = 1;
 	while (i < argc)
 	{
 		if (!check_flag(argv[i]))
 		{
-			arr[j].nbr = ft_atoi(argv[i]);
-			printf("%d\n", arr[j].nbr);
+			info->stack_a[j].nbr = (int)ft_atoi(argv[i]);
+			info->stack_a[j].rank = 0;
 			j++;
 		}
 		i++;
 	}
-	return (arr);
+	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	int		i;
 	int		nbr_count;
-	t_arr	*arr;
+	t_info	info;
 
 	i = 1;
 	nbr_count = 0;
-	arr = NULL;
 	while (i < argc)
 	{
 		if (!check_flag(argv[i]) && check_min_max(argv[i]))
@@ -89,9 +94,14 @@ int	main(int argc, char **argv)
 			nbr_count++;
 		i++;
 	}
-	arr = push_swap_arr(argc, argv, nbr_count);
-	if (push_swap(argv, arr, nbr_count))
+	if (init_push_swap_info(&info, argc, argv, nbr_count))
+	{
 		ft_putendl_fd("Error", 1);
-	free(arr);
+		return (0);
+	}
+	if (push_swap(argv, &info))
+		ft_putendl_fd("Error", 1);
+	free(info.stack_a);
+	free(info.stack_b);
 	return (0);
 }

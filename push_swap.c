@@ -6,56 +6,37 @@
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 11:47:57 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/18 13:52:33 by jesau            ###   ########.fr       */
+/*   Updated: 2026/07/19 21:59:49 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
-float	compute_disorder(t_arr *arr, int nbr_count)
+int	push_swap(char **argv, t_info *info)
 {
 	int		i;
-	int		j;
-	float	mistakes;
-	float	total_pairs;
-
-	mistakes = 0;
-	total_pairs = 0;
-	i = 0;
-	while (i < nbr_count)
-	{
-		j = i + 1;
-		while (j < nbr_count)
-		{
-			total_pairs += 1;
-			if (arr[i].nbr > arr[j].nbr)
-				mistakes += 1;
-			j++;
-		}
-		i++;
-	}
-	printf("Disorder is %f%%\n", (mistakes / total_pairs) * 100);
-	return (mistakes / total_pairs);
-}
-
-int	push_swap(char **argv, t_arr *arr, int nbr_count)
-{
-	int	i;
-	int	j;
+	float	disorder;
 
 	(void)argv;
+	disorder = 0;
+	if (check_dup(info->stack_a, info->size_a) 
+		|| arr_sort_copy(info->stack_a, info->size_a))
+		return (1);
+	printf("%6s   %4s      %6s   %4s\n", "StackA", "Rank", "StackB", "Rank");
+	
 	i = 0;
-	while (i < nbr_count)
+	while (i < info->size_a)
 	{
-		j = i + 1;
-		while (j < nbr_count)
-		{
-			if (arr[i].nbr == arr[j].nbr)
-				return (1);
-			j++;
-		}
+		printf("%6d   %4d", info->stack_a[i].nbr, info->stack_a[i].rank);
+		if (i < info->size_b)
+			printf("      %6d   %4d\n", info->stack_b[i].nbr, info->stack_b[i].rank);
+		else
+			printf("      %6s   %4s\n", "-", "-");
 		i++;
 	}
-	compute_disorder(arr, nbr_count);
+	disorder = compute_disorder(info->stack_a, info->size_a);
+	printf("Array disorder is %.2f\n", disorder);
+	
 	return (0);
 }
