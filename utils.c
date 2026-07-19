@@ -6,11 +6,22 @@
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/19 09:50:30 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/19 22:10:03 by jesau            ###   ########.fr       */
+/*   Updated: 2026/07/19 22:59:38 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	check_flag(char *str)
+{
+	if (ft_strncmp("--simple", str, 10) == 0
+		|| ft_strncmp("--medium", str, 10) == 0
+		|| ft_strncmp("--complex", str, 10) == 0
+		|| ft_strncmp("--adaptive", str, 10) == 0
+		|| ft_strncmp("--bench", str, 10) == 0)
+		return (1);
+	return (0);
+}
 
 int	check_dup(t_arr *stack_a, int size_a)
 {
@@ -80,31 +91,4 @@ int	arr_sort_copy(t_arr *stack_a, int size_a)
 	}
 	arr_ranker(stack_a, sort_arr, size_a);
 	return (0);
-}
-
-float	compute_disorder(t_arr *stack_a, int size_a)
-{
-	int		i;
-	int		j;
-	float	mistakes;
-	float	total_pairs;
-
-	if (size_a < 2)
-		return (0.0);
-	mistakes = 0;
-	total_pairs = 0;
-	i = 0;
-	while (i < size_a)
-	{
-		j = i + 1;
-		while (j < size_a)
-		{
-			total_pairs += 1;
-			if (stack_a[i].nbr > stack_a[j].nbr)
-				mistakes += 1;
-			j++;
-		}
-		i++;
-	}
-	return (mistakes / total_pairs);
 }
