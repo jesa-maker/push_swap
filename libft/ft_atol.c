@@ -6,15 +6,15 @@
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/22 12:34:10 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/17 13:16:28 by jesau            ###   ########.fr       */
+/*   Updated: 2026/07/20 10:52:45 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-long long	ft_atoi(const char *nptr)
+long	ft_atol(const char *nptr)
 {
-	int			i;
-	int			sign;
-	long long	sum;
+	int		i;
+	int		sign;
+	long	sum;
 
 	sum = 0;
 	sign = 1;

@@ -6,7 +6,7 @@
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 10:19:26 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/19 23:04:38 by jesau            ###   ########.fr       */
+/*   Updated: 2026/07/20 13:18:28 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,32 @@ static int	allocate_stacks(t_info *info, int nbr_count)
 	{
 		free(info->stack_a);
 		free(info->stack_b);
-		return (1);
+		return (-1);
 	}
 	info->size_a = nbr_count;
 	info->size_b = 0;
+	info->simple = false;
+	info->medium = false;
+	info->complex = false;
+	info->adaptive = false;
+	info->bench = false;
 	return (0);
 }
 
-int	init_push_swap_info(t_info *info, int argc, char **argv, int nbr_count)
+int	init_info(t_info *info, int argc, char **argv, int nbr_count)
 {
 	int	i;
 	int	j;
 
-	if (allocate_stacks(info, nbr_count))
-		return (1);
+	if (allocate_stacks(info, nbr_count) == -1)
+		return (-1);
 	j = 0;
 	i = 1;
 	while (i < argc)
 	{
-		if (!check_flag(argv[i]))
+		if (!check_flag(argv[i], info))
 		{
-			info->stack_a[j].nbr = ft_atoi(argv[i]);
+			info->stack_a[j].nbr = ft_atol(argv[i]);
 			info->stack_a[j].rank = 0;
 			j++;
 		}
@@ -49,16 +54,16 @@ int	init_push_swap_info(t_info *info, int argc, char **argv, int nbr_count)
 	return (0);
 }
 
-static int	count_and_validate(int argc, char **argv, int *nbr_count)
+static int	count_validate(t_info *info, int argc, char **argv, int *nbr_count)
 {
 	int	i;
 
 	i = 1;
 	while (i < argc)
 	{
-		if (!check_flag(argv[i]) && check_min_max(argv[i]))
+		if (!check_flag(argv[i], info) && (check_min_max(argv[i]) == -1))
 			return (-1);
-		if (!check_flag(argv[i]))
+		if (!check_flag(argv[i], info))
 			(*nbr_count)++;
 		i++;
 	}
@@ -71,17 +76,17 @@ int	main(int argc, char **argv)
 	t_info	info;
 
 	nbr_count = 0;
-	if (count_and_validate(argc, argv, &nbr_count) == -1)
+	if (count_validate(&info, argc, argv, &nbr_count) == -1)
 	{
 		ft_putendl_fd("Error", 1);
 		return (0);
 	}
-	if (init_push_swap_info(&info, argc, argv, nbr_count))
+	if (init_info(&info, argc, argv, nbr_count) == -1)
 	{
 		ft_putendl_fd("Error", 1);
 		return (0);
 	}
-	if (push_swap(argv, &info))
+	if (push_swap(&info) == -1)
 		ft_putendl_fd("Error", 1);
 	free(info.stack_a);
 	free(info.stack_b);

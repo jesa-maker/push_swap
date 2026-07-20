@@ -6,22 +6,29 @@
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/19 09:50:30 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/19 22:59:38 by jesau            ###   ########.fr       */
+/*   Updated: 2026/07/20 13:24:43 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	check_flag(char *str)
+int	check_flag(char *str, t_info *info)
 {
-	if (ft_strncmp("--simple", str, 10) == 0
-		|| ft_strncmp("--medium", str, 10) == 0
-		|| ft_strncmp("--complex", str, 10) == 0
-		|| ft_strncmp("--adaptive", str, 10) == 0
-		|| ft_strncmp("--bench", str, 10) == 0)
-		return (1);
-	return (0);
+	if (ft_strncmp("--simple", str, 10) == 0)
+		info->simple = true;
+	else if (ft_strncmp("--medium", str, 10) == 0)
+		info->medium = true;
+	else if (ft_strncmp("--complex", str, 10) == 0)
+		info->complex = true;
+	else if (ft_strncmp("--adaptive", str, 10) == 0)
+		info->adaptive = true;
+	else if (ft_strncmp("--bench", str, 10) == 0)
+		info->bench = true;
+	else
+		return (0);
+	return (-1);
 }
+
 
 int	check_dup(t_arr *stack_a, int size_a)
 {
@@ -35,7 +42,7 @@ int	check_dup(t_arr *stack_a, int size_a)
 		while (j < size_a)
 		{
 			if (stack_a[i].nbr == stack_a[j].nbr)
-				return (1);
+				return (-1);
 			j++;
 		}
 		i++;
@@ -75,7 +82,7 @@ int	arr_sort_copy(t_arr *stack_a, int size_a)
 
 	sort_arr = (int *)malloc(sizeof(int) * size_a);
 	if (!sort_arr)
-		return (1);
+		return (-1);
 	i = 0;
 	while (i < size_a)
 	{
