@@ -6,7 +6,7 @@
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/19 10:13:22 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/20 21:32:10 by jesau            ###   ########.fr       */
+/*   Updated: 2026/07/20 23:06:28 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,21 +84,16 @@ void	simple_algo(t_info *info)
 	sort_three_a(info);
 	while (info->size_b > 0)
 	{
-		if (info->size_b == 3)
-		{
-			sort_three_b(info);
-			pa(info);
-			pa(info);
-			pa(info);
-			return ;
-		}
 		pos = get_next(info);
-		if (pos == 0)
-			pa(info);
-		else if (pos > (info->size_b / 2))
-			rrb(info);
-		else if (pos <= (info->size_b / 2))
-			rb(info);
+		while (pos != 0)
+		{
+			if (pos > (info->size_b / 2))
+				rrb(info);
+			else
+				rb(info);
+			pos = get_next(info);
+		}
+		pa(info);
 	}
 }
 
