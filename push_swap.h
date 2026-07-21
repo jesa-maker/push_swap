@@ -6,7 +6,7 @@
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 10:15:59 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/20 21:02:22 by jesau            ###   ########.fr       */
+/*   Updated: 2026/07/21 18:52:21 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ typedef struct s_info
 	t_arr	*stack_b;
 	int		size_a;
 	int		size_b;
+	int		total;
+	int		chunk_size;
+	int		chunk_step;
+	int		pivot;
+	int		frame;
 	bool	simple;
 	bool	medium;
 	bool	complex;
@@ -40,7 +45,7 @@ typedef struct s_info
 /* Main program engine and parsers */
 int		main(int argc, char **argv);
 int		push_swap(t_info *info);
-int		init_info(t_info *info, int argc, char **argv, int nbr_count);
+int		init_info(t_info *info, int argc, char **argv);
 
 /* Sorting analytics and helpers */
 void	arr_ranker(t_arr *arr, int *sort_arr, int size);
@@ -49,9 +54,11 @@ float	compute_disorder(t_arr *stack, int size);
 int		check_dup(t_arr *arr, int nbr_count);
 int		check_min_max(char *str);
 int		check_flag(char *str, t_info *info);
-void	sort_three_a(t_info *info);
-void	sort_three_b(t_info *info);
+void	sort_three(t_info *info);
 void	simple_algo(t_info *info);
+void	medium_algo(t_info *info);
+void	complex_algo(t_info *info);
+void	rotate_update(t_info *info, int *pos);
 int		get_next(t_info *info);
 
 /* Stack Operations */

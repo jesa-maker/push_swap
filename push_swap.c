@@ -6,7 +6,7 @@
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/18 11:47:57 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/20 18:30:02 by jesau            ###   ########.fr       */
+/*   Updated: 2026/07/21 20:47:24 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,20 @@
 
 int	push_swap(t_info *info)
 {
-	int		i;
+//	int		i;
 	float	disorder;
 
 	disorder = compute_disorder(info->stack_a, info->size_a);
 	if (check_dup(info->stack_a, info->size_a) == -1
 		|| arr_sort_copy(info->stack_a, info->size_a) == -1)
 		return (-1);
-	simple_algo(info);
-	printf("%6s   %4s      %6s   %4s\n", "StackA", "Rank", "StackB", "Rank");
+	if (disorder < 0.2)
+		simple_algo(info);
+	else if (disorder >= 0.2 && disorder < 0.5)
+		medium_algo(info);
+	else if (disorder >= 0.5)
+		complex_algo(info);
+/*	printf("%6s   %4s      %6s   %4s\n", "StackA", "Rank", "StackB", "Rank");
 	i = 0;
 	while (i < info->size_a)
 	{
@@ -36,7 +41,7 @@ int	push_swap(t_info *info)
 		i++;
 	}
 	printf("Simple = %b\nMedium = %b\nComplex = %b\nAdaptive = %b\nBench = %b\n",
-		info->simple, info->medium, info->complex, info->adaptive, info->bench);
+		info->simple, info->medium, info->complex, info->adaptive, info->bench); */
 	printf("Array disorder is %.2f\n", disorder);
 	return (0);
 }

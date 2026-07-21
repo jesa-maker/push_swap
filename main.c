@@ -6,23 +6,23 @@
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 10:19:26 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/20 13:18:28 by jesau            ###   ########.fr       */
+/*   Updated: 2026/07/21 19:07:20 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	allocate_stacks(t_info *info, int nbr_count)
+static int	allocate_stacks(t_info *info)
 {
-	info->stack_a = malloc(sizeof(t_arr) * nbr_count);
-	info->stack_b = malloc(sizeof(t_arr) * nbr_count);
+	info->stack_a = malloc(sizeof(t_arr) * info->total);
+	info->stack_b = malloc(sizeof(t_arr) * info->total);
 	if (!info->stack_a || !info->stack_b)
 	{
 		free(info->stack_a);
 		free(info->stack_b);
 		return (-1);
 	}
-	info->size_a = nbr_count;
+	info->size_a = info->total;
 	info->size_b = 0;
 	info->simple = false;
 	info->medium = false;
@@ -32,12 +32,12 @@ static int	allocate_stacks(t_info *info, int nbr_count)
 	return (0);
 }
 
-int	init_info(t_info *info, int argc, char **argv, int nbr_count)
+int	init_info(t_info *info, int argc, char **argv)
 {
 	int	i;
 	int	j;
 
-	if (allocate_stacks(info, nbr_count) == -1)
+	if (allocate_stacks(info) == -1)
 		return (-1);
 	j = 0;
 	i = 1;
@@ -51,10 +51,14 @@ int	init_info(t_info *info, int argc, char **argv, int nbr_count)
 		}
 		i++;
 	}
+	info->chunk_step = 20;
+	if (info->total > 100)
+		info->chunk_step = 45;
+	info->chunk_size = info->chunk_step;
 	return (0);
 }
 
-static int	count_validate(t_info *info, int argc, char **argv, int *nbr_count)
+static int	count_validate(t_info *info, int argc, char **argv)
 {
 	int	i;
 
@@ -64,7 +68,7 @@ static int	count_validate(t_info *info, int argc, char **argv, int *nbr_count)
 		if (!check_flag(argv[i], info) && (check_min_max(argv[i]) == -1))
 			return (-1);
 		if (!check_flag(argv[i], info))
-			(*nbr_count)++;
+			info->total++;
 		i++;
 	}
 	return (0);
@@ -72,16 +76,15 @@ static int	count_validate(t_info *info, int argc, char **argv, int *nbr_count)
 
 int	main(int argc, char **argv)
 {
-	int		nbr_count;
 	t_info	info;
 
-	nbr_count = 0;
-	if (count_validate(&info, argc, argv, &nbr_count) == -1)
+	info.total = 0;
+	if (count_validate(&info, argc, argv) == -1)
 	{
 		ft_putendl_fd("Error", 1);
 		return (0);
 	}
-	if (init_info(&info, argc, argv, nbr_count) == -1)
+	if (init_info(&info, argc, argv) == -1)
 	{
 		ft_putendl_fd("Error", 1);
 		return (0);

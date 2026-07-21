@@ -6,13 +6,13 @@
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/19 10:13:22 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/20 23:06:28 by jesau            ###   ########.fr       */
+/*   Updated: 2026/07/21 18:49:46 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sort_three_a(t_info *info)
+void	sort_three(t_info *info)
 {
 	int	a;
 	int	b;
@@ -40,48 +40,18 @@ void	sort_three_a(t_info *info)
 	}
 }
 
-void	sort_three_b(t_info *info)
-{
-	int	a;
-	int	b;
-	int	c;
-
-	a = info->stack_b[0].rank;
-	b = info->stack_b[1].rank;
-	c = info->stack_b[2].rank;
-
-	if (a > b && b < c && a < c)
-		rrb(info);
-	else if (a < b && b < c && a < c)
-	{
-		sb(info);
-		rrb(info);
-	}
-	else if (a > b && b < c && a > c)
-	{
-		rrb(info);
-		sb(info);
-	}
-	else if (a < b && b > c && a > c)
-		sb(info);
-	else if (a < b && b > c && a < c)
-		rb(info);
-}
-
 void	simple_algo(t_info *info)
 {
 	int	pos;
-	int	max_rank;
 
-	max_rank = info->size_a;
 	while (info->size_a > 3)
 	{
-		if ((info->stack_a[0].rank) < (max_rank - 3))
+		if ((info->stack_a[0].rank) < (info->total - 3))
 			pb(info);
 		else
 			ra(info);
 	}
-	sort_three_a(info);
+	sort_three(info);
 	while (info->size_b > 0)
 	{
 		pos = get_next(info);
@@ -95,25 +65,4 @@ void	simple_algo(t_info *info)
 		}
 		pa(info);
 	}
-}
-
-int	get_next(t_info *info)
-{
-	int	i;
-	int	max_rank;
-	int	max_index;
-
-	max_rank = info->stack_b[0].rank;
-	max_index = 0;
-	i = 1;
-	while (i < info->size_b)
-	{
-		if (info->stack_b[i].rank > max_rank)
-		{
-			max_rank = info->stack_b[i].rank;
-			max_index = i;
-		}
-		i++;
-	}
-	return (max_index);
 }

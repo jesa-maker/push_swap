@@ -6,7 +6,7 @@
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/19 09:50:30 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/20 13:24:43 by jesau            ###   ########.fr       */
+/*   Updated: 2026/07/21 18:50:15 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,25 @@ int	arr_sort_copy(t_arr *stack_a, int size_a)
 	}
 	arr_ranker(stack_a, sort_arr, size_a);
 	return (0);
+}
+
+int	get_next(t_info *info)
+{
+	int	i;
+	int	max_rank;
+	int	max_index;
+
+	max_rank = info->stack_b[0].rank;
+	max_index = 0;
+	i = 1;
+	while (i < info->size_b)
+	{
+		if (info->stack_b[i].rank > max_rank)
+		{
+			max_rank = info->stack_b[i].rank;
+			max_index = i;
+		}
+		i++;
+	}
+	return (max_index);
 }
