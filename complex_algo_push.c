@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   complex_algo.c                                     :+:      :+:    :+:   */
+/*   complex_algo_push.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/07/21 17:37:24 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/21 20:37:11 by jesau            ###   ########.fr       */
+/*   Created: 2026/07/22 10:23:57 by jesau             #+#    #+#             */
+/*   Updated: 2026/07/22 11:19:33 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	init_bounds(t_info *info)
 	info->pivot = info->frame;
 }
 
-static void	quick_push(t_info *info, int *i)
+static void	quick_sort_push(t_info *info, int *i)
 {
 	pb(info);
 	(*i)++;
@@ -34,37 +34,24 @@ static void	quick_push(t_info *info, int *i)
 	}
 }
 
-static void	push_to_a(t_info *info)
-{
-	int	pos;
-
-	while (info->size_b > 0)
-	{
-		pos = get_next(info);
-		while (pos != 0)
-			rotate_update(info, &pos);
-		pa(info);
-	}
-}
-
 void	complex_algo(t_info *info)
 {
-	int	i;
+	int	elements_pushed;
 
-	i = 0;
+	elements_pushed = 0;
 	init_bounds(info);
 	while (info->size_a > 3)
 	{
 		if (info->stack_a[0].rank < info->pivot)
-			quick_push(info, &i);
+			quick_sort_push(info, &elements_pushed);
 		else if (info->stack_a[info->size_a - 1].rank < info->pivot)
 		{
 			rra(info);
-			quick_push(info, &i);
+			quick_sort_push(info, &elements_pushed);
 		}
 		else
 			ra(info);
 	}
 	sort_three(info);
-	push_to_a(info);
+	return_push(info);
 }

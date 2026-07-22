@@ -6,11 +6,36 @@
 /*   By: jesau <jesau@student.42wolfsburg.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/17 10:19:26 by jesau             #+#    #+#             */
-/*   Updated: 2026/07/21 19:07:20 by jesau            ###   ########.fr       */
+/*   Updated: 2026/07/22 12:00:56 by jesau            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static int	allocate_stacks(t_info *info);
+static int	count_validate(t_info *info, int argc, char **argv);
+
+int	main(int argc, char **argv)
+{
+	t_info	info;
+
+	info.total = 0;
+	if (count_validate(&info, argc, argv) == -1)
+	{
+		ft_putendl_fd("Error", 1);
+		return (0);
+	}
+	if (init_info(&info, argc, argv) == -1)
+	{
+		ft_putendl_fd("Error", 1);
+		return (0);
+	}
+	if (push_swap(&info) == -1)
+		ft_putendl_fd("Error", 1);
+	free(info.stack_a);
+	free(info.stack_b);
+	return (0);
+}
 
 static int	allocate_stacks(t_info *info)
 {
@@ -71,27 +96,5 @@ static int	count_validate(t_info *info, int argc, char **argv)
 			info->total++;
 		i++;
 	}
-	return (0);
-}
-
-int	main(int argc, char **argv)
-{
-	t_info	info;
-
-	info.total = 0;
-	if (count_validate(&info, argc, argv) == -1)
-	{
-		ft_putendl_fd("Error", 1);
-		return (0);
-	}
-	if (init_info(&info, argc, argv) == -1)
-	{
-		ft_putendl_fd("Error", 1);
-		return (0);
-	}
-	if (push_swap(&info) == -1)
-		ft_putendl_fd("Error", 1);
-	free(info.stack_a);
-	free(info.stack_b);
 	return (0);
 }
